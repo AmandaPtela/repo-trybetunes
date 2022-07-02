@@ -27,7 +27,7 @@ class Login extends React.Component {
 
   criarUser = async () => {
     const { nomeUser } = this.state;
-    this.setState({ loading: true})
+    this.setState({ loading: true });
     const user = await createUser({ name: nomeUser });
     this.setState({
       allowedLogin: user,
@@ -45,7 +45,8 @@ class Login extends React.Component {
         {
           (
             !allowedLogin
-          ) ? (
+          )
+            ? (
               <div data-testid="page-login">
                 <input
                   data-testid="login-name-input"
@@ -63,11 +64,10 @@ class Login extends React.Component {
                     Entrar
                   </button>
                 </Link>
-
               </div>
             )
             : <Search />
-          }
+        }
       </div>
     );
   }
