@@ -1,7 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom/cjs/react-router-dom.min';
-import Navegacao from './Navegacao';
-import Search from './Search';
 import Album from './Album';
 import Favorites from './Favorites';
 import Profile from './Profile';
@@ -13,7 +11,6 @@ class Home extends React.Component {
     return (
       <div>
         <BrowserRouter>
-          <Search />
           <Route path="/album" component={ Album } />
           <Route path="/favorites" component={ Favorites } />
           <Route path="/profile/edit" component={ ProfileEdit } />

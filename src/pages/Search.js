@@ -7,7 +7,7 @@ class Search extends React.Component {
       <div data-testid="page-search">
         <input type="text" />
         <Link to="/search">Buscar</Link>
-        <p>profile edit</p>
+        <p>PESQUISA</p>
         {/* rota: /search */}
       </div>
     );
