@@ -7,8 +7,8 @@ class Navegacao extends React.Component {
       <nav>
         <ul>
           <Link to="/album">Album</Link>
-          <Link to="/favorites">Favorites</Link>
-          <Link to="/profile">Profile</Link>
+          <Link to="/favorites" data-testid="link-to-favorites">Favorites</Link>
+          <Link to="/profile" data-testid="link-to-profile">Profile</Link>
           <Link to="/profile/edit">ProfileEdit</Link>
         </ul>
       </nav>

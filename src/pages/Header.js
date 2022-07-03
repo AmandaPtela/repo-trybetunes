@@ -2,6 +2,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
+import Navegacao from './Navegacao';
 
 class Header extends React.Component {
   state = {
@@ -16,7 +17,6 @@ class Header extends React.Component {
       await getUser();
     };
     getUsuario();
-    console.log(nomeUsuarioHeader);
     this.setState({
       carregando: false,
     });
@@ -39,6 +39,7 @@ class Header extends React.Component {
             </h1>
           )
           : <p>Cabecalho</p>}
+          <Navegacao />
       </div>
     );
   }

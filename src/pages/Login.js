@@ -56,7 +56,7 @@ class Login extends React.Component {
                   onChange={ this.pegarNome }
                   placeholder="usuário"
                 />
-                <Link to="/search">
+                <Link to="/search" data-testid="link-to-search">
                   <button
                     data-testid="login-submit-button"
                     type="submit"
