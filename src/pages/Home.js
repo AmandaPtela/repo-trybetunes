@@ -14,7 +14,6 @@ class Home extends React.Component {
       <div>
         <BrowserRouter>
           <Search />
-          <Navegacao />
           <Route path="/album" component={ Album } />
           <Route path="/favorites" component={ Favorites } />
           <Route path="/profile/edit" component={ ProfileEdit } />

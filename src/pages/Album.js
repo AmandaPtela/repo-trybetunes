@@ -7,6 +7,7 @@ class Album extends React.Component {
       <div data-testid="page-album">
         <Header />
         <p>Albuns</p>
+        <p>profile edit</p>
         {/* Aqui vão os albuns */}
         {/* rota: /album/:id */}
       </div>

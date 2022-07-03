@@ -6,6 +6,7 @@ class ProfileEdit extends React.Component {
     return (
       <div data-testid="page-profile-edit">
         <Header />
+        <p>profile edit</p>
         {/* Aqui vão as informações usuário a ser editadas */}
         {/* rota: /profile/edit */}
       </div>

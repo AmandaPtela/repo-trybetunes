@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Login from './pages/Login';
-// import Home from './pages/Home';
+import Home from './pages/Home';
 
 class App extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class App extends React.Component {
       <BrowserRouter>
         <div>
           <Login />
-          {/* <Home /> */}
+          <Home />
         </div>
       </BrowserRouter>
     );
