@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { createUser } from '../services/userAPI';
+import Header from './Header';
 import Loading from './Loading';
 import Search from './Search';
 
@@ -36,11 +37,12 @@ class Login extends React.Component {
   }
 
   render() {
-    const { buttonDisabled, allowedLogin, loading } = this.state;
+    const { buttonDisabled, allowedLogin, nomeUser, loading } = this.state;
     // const time = 1000;
     // console.log(nomeUser);
     return (
       <div className="geral">
+        {!loading && <Header ok={ allowedLogin } nomeUsuario={ nomeUser } />}
         {loading && <Loading />}
         {
           (
