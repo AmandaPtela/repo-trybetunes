@@ -11,7 +11,6 @@ class Header extends React.Component {
   }
 
   componentDidMount() {
-    const { nomeUsuarioHeader } = this.state;
     this.setState({ carregando: true });
     const getUsuario = async () => {
       await getUser();
@@ -39,7 +38,7 @@ class Header extends React.Component {
             </h1>
           )
           : <p>Cabecalho</p>}
-          <Navegacao />
+        <Navegacao />
       </div>
     );
   }
