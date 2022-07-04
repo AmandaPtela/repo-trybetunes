@@ -1,44 +1,44 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
-import Navegacao from './Navegacao';
 
 class Header extends React.Component {
   state = {
     nomeUserHeader: '',
-    carregando: false,
+    carregando: true,
   }
 
-  componentDidMount() {
-    this.setState({ carregando: true });
-    const getUsuario = async () => {
-      await getUser();
-    };
-    getUsuario();
-    this.setState({
-      carregando: false,
-    });
+  componentDidMount = async () => {
+    const usuario = await getUser().then((data) => data.name);
+    this.setState({ nomeUserHeader: usuario,
+      carregando: false });
   }
 
   render() {
     const { carregando, nomeUserHeader } = this.state;
-    // const { nomeUsuario } = this.props;
     // const cabeçaFalse = this.cabeça();
     return (
       <div data-testid="header-component">
         {carregando && <Loading />}
-        {(nomeUserHeader
+        {(!carregando
         )
           ? (
             <h1
               data-testid="header-user-name"
             >
-              {`Bem-vinde, ${nomeUserHeader}`}
+              {`Boas vindas, ${nomeUserHeader}`}
             </h1>
           )
           : <p>Cabecalho</p>}
-        <Navegacao />
+        <nav>
+          <Link to="/search" data-testid="link-to-search">Search</Link>
+          |
+          <Link to="/favorites" data-testid="link-to-favorites">Favorites</Link>
+          |
+          <Link to="/profile" data-testid="link-to-profile">Profile</Link>
+        </nav>
       </div>
     );
   }

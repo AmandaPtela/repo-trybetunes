@@ -1,15 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import { createUser } from '../services/userAPI';
-import Header from './Header';
 import Loading from './Loading';
-import Search from './Search';
 
 class Login extends React.Component {
   state = {
     nomeUser: '',
     buttonDisabled: true,
-    allowedLogin: '',
+    allowedLogin: false,
     loading: false,
   }
 
@@ -26,50 +24,48 @@ class Login extends React.Component {
     }
   }
 
-  criarUser = async () => {
+  criarUser = () => {
     const { nomeUser } = this.state;
-    this.setState({ loading: true });
-    const user = await createUser({ name: nomeUser });
-    this.setState({
-      allowedLogin: user,
-      loading: false,
+    this.setState({ loading: true }, async () => {
+      const user = await createUser({ name: nomeUser });
+      console.log(user);
+      this.setState({
+        allowedLogin: true,
+        loading: false,
+      });
     });
   }
 
   render() {
-    const { buttonDisabled, allowedLogin, nomeUser, loading } = this.state;
+    const { buttonDisabled, allowedLogin, loading } = this.state;
     // const time = 1000;
     // console.log(nomeUser);
     return (
       <div className="geral">
-        {!loading && <Header ok={ allowedLogin } nomeUsuario={ nomeUser } />}
         {loading && <Loading />}
         {
           (
             !allowedLogin
+          ) && (
+            <div data-testid="page-login">
+              <input
+                data-testid="login-name-input"
+                type="text"
+                onChange={ this.pegarNome }
+                placeholder="usuário"
+              />
+              <button
+                data-testid="login-submit-button"
+                type="submit"
+                onClick={ this.criarUser }
+                disabled={ buttonDisabled }
+              >
+                Entrar
+              </button>
+            </div>
           )
-            ? (
-              <div data-testid="page-login">
-                <input
-                  data-testid="login-name-input"
-                  type="text"
-                  onChange={ this.pegarNome }
-                  placeholder="usuário"
-                />
-                <Link to="/search" data-testid="link-to-search">
-                  <button
-                    data-testid="login-submit-button"
-                    type="submit"
-                    onClick={ this.criarUser }
-                    disabled={ buttonDisabled }
-                  >
-                    Entrar
-                  </button>
-                </Link>
-              </div>
-            )
-            : <Search />
         }
+        {allowedLogin && <Redirect data-testid="link-to-search" to="/search" />}
       </div>
     );
   }

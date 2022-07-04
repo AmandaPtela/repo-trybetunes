@@ -1,16 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import PropTypes from 'prop-types';
+import Header from './Header';
 
 class Search extends React.Component {
   render() {
+    const { nomeUsuario } = this.props;
     return (
       <div data-testid="page-search">
+        <Header nomeUserr={ nomeUsuario } />
         <input type="text" />
-        <Link to="/search">Buscar</Link>
-        <p>PESQUISA</p>
+        <button type="submit">Buscar</button>
+        <p>Resultado PESQUISA</p>
         {/* rota: /search */}
       </div>
     );
   }
 }
+Search.propTypes = {
+  nomeUsuario: PropTypes.string.isRequired,
+};
+
 export default Search;
