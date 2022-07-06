@@ -20,8 +20,7 @@ class MusicCard extends React.Component {
     const { listaMusicas } = this.state;
     const arrayNomeAlbum = listaMusicas.map((musicas) => musicas.collectionName);
     const arrayNomesArtista = listaMusicas.map((item) => item.artistName);
-    const musicas = listaMusicas.map((item) => item.trackName);
-    console.log(musicas.slice(1));
+    // const musicas = listaMusicas.slice(1).map((item) => item.trackName);
 
     return (
       <>
@@ -40,12 +39,12 @@ class MusicCard extends React.Component {
             </p>
           </div>
           <div className="lista-musicas">
-            {listaMusicas.slice(1).map((item, index) => (
+            {listaMusicas.slice(1).map((item) => (
               <li
                 className="itens"
-                key={ index }
+                key={ item.collectionId }
               >
-                {`${item.trackNumber} - ${item.trackName}
+                {`${item.trackName}
                   `}
                 <audio
                   data-testid="audio-component"

@@ -14,7 +14,6 @@ header {
   background-color: rgb(48, 136, 107);
   display: flex;
   flex-flow: column;
-  justify-content: space-around;
   justify-items: baseline;
   list-style: none;
   max-height: 450px;
