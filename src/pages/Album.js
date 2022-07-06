@@ -1,17 +1,18 @@
 import React from 'react';
-import Header from './Header';
+import { PropTypes } from 'prop-types';
+import MusicCard from './MusicCard';
 
 class Album extends React.Component {
   render() {
+    const { location } = this.props;
+    const Id = location.pathname.split('/');
     return (
-      <div data-testid="page-album">
-        <Header />
-        <p>Albuns</p>
-        <p>profile edit</p>
-        {/* Aqui vão os albuns */}
-        {/* rota: /album/:id */}
-      </div>
+      <MusicCard ident={ Id[2] } />
     );
   }
 }
+
+Album.propTypes = {
+  location: PropTypes.string.isRequired,
+};
 export default Album;

@@ -30,10 +30,12 @@ class Search extends React.Component {
 
   cliquePesquisa = async () => {
     const { inputArtistaBuscado } = this.state;
-    // const conteudo = resultSearch.filter((item) => item.artistName);
     this.setState({ artistaBuscado: inputArtistaBuscado });
     const busca = await searchAlbumsAPI(inputArtistaBuscado).then((data) => data);
-    this.setState({ resultadoBusca: busca, inputArtistaBuscado: '' });
+    this.setState({
+      resultadoBusca: busca,
+      inputArtistaBuscado: '',
+    });
   }
 
   render() {
