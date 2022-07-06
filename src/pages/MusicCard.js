@@ -10,7 +10,7 @@ class MusicCard extends React.Component {
   state = {
     listaMusicas: [],
     loading: false,
-    marcado: false,
+    favoritas: [],
   }
 
   async componentDidMount() {
@@ -21,17 +21,16 @@ class MusicCard extends React.Component {
   }
 
   addFavorite = (event) => {
-    event.target.checked && this.setState({marcado: true});
-    
-    this.setState({ loading: true}, async () => {
+    const { favoritas } = this.state;
+    this.setState({ loading: true }, async () => {
       const musica = event.target.value;
-      const add = await addSong(musica);
-      this.setState({ loading: false });
+      await addSong(musica);
+      this.setState({ loading: false, favoritas: [...favoritas, musica] });
     });
   }
 
   render() {
-    const { listaMusicas, loading, marcado } = this.state;
+    const { listaMusicas, loading, favoritas } = this.state;
     const arrayNomeAlbum = listaMusicas.map((musicas) => musicas.collectionName);
     const arrayNomesArtista = listaMusicas.map((item) => item.artistName);
     // const musicas = listaMusicas.slice(1).map((item) => item.trackName);
@@ -60,13 +59,14 @@ class MusicCard extends React.Component {
                     key={ index }
                   >
                     <input
+                      className="input-fav"
                       onChange={ this.addFavorite }
                       type="checkbox"
-                      checked={ marcado }
+                      value={ item.trackName }
+                      checked={ favoritas.includes(item.trackName) }
                       data-testid={ `checkbox-music-${item.trackId}` }
                     />
-                    {`${item.trackName}
-                      `}
+                    <p>{`${item.trackName}`}</p>
                     <audio
                       data-testid="audio-component"
                       src={ `${item.previewUrl}` }

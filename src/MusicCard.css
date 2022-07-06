@@ -5,7 +5,7 @@ header {
 .geral {
   align-items: center;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
   padding: 30px;
 }
@@ -18,23 +18,28 @@ header {
   list-style: none;
   max-height: 450px;
   overflow-y: scroll;
-
-  /*   padding-top: 470px; */
   padding-left: 25px;
   padding-right: 25px;
-  width: 70%;
+  width: 75%;
 }
 
 .itens {
-  align-items: baseline;
+  align-items: center;
   display: flex;
   flex-direction: row;
-  height: 50px;
-  justify-content: space-between;
-  text-align: right;
+  height: 65px;
+  justify-items: baseline;
 }
+ p {
+  text-align: start;
+  width: 600px;
+ }
 
+ .input-fav {
+  width: 30px;
+ }
 audio {
   align-self: baseline;
   height: 20px;
+  padding: 20px;
 }
