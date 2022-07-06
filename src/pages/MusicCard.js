@@ -2,11 +2,15 @@ import { PropTypes } from 'prop-types';
 import React from 'react';
 import '../MusicCard.css';
 import getMusics from '../services/musicsAPI';
+import { addSong } from '../services/favoriteSongsAPI';
 import Header from './Header';
+import Loading from './Loading';
 
 class MusicCard extends React.Component {
   state = {
     listaMusicas: [],
+    loading: false,
+    marcado: false,
   }
 
   async componentDidMount() {
@@ -16,46 +20,63 @@ class MusicCard extends React.Component {
     this.setState({ listaMusicas: lista });
   }
 
+  addFavorite = (event) => {
+    event.target.checked && this.setState({marcado: true});
+    
+    this.setState({ loading: true}, async () => {
+      const musica = event.target.value;
+      const add = await addSong(musica);
+      this.setState({ loading: false });
+    });
+  }
+
   render() {
-    const { listaMusicas } = this.state;
+    const { listaMusicas, loading, marcado } = this.state;
     const arrayNomeAlbum = listaMusicas.map((musicas) => musicas.collectionName);
     const arrayNomesArtista = listaMusicas.map((item) => item.artistName);
     // const musicas = listaMusicas.slice(1).map((item) => item.trackName);
-
     return (
       <>
         <Header />
-        <div className="geral" data-testid="page-album">
-          <div className="inf-art">
-            <p
-              data-testid="artist-name"
-            >
-              {`${arrayNomesArtista[0]}`}
-            </p>
-            <p
-              data-testid="album-name"
-            >
-              { `${arrayNomeAlbum[0]}`}
-            </p>
-          </div>
-          <div className="lista-musicas">
-            {listaMusicas.slice(1).map((item) => (
-              <li
-                className="itens"
-                key={ item.collectionId }
-              >
-                {`${item.trackName}
-                  `}
-                <audio
-                  data-testid="audio-component"
-                  src={ `${item.previewUrl}` }
-                  controls
+        {loading ? (<Loading />)
+          : (
+            <div className="geral" data-testid="page-album">
+              <div className="inf-art">
+                <p
+                  data-testid="artist-name"
                 >
-                  <track kind="captions" />
-                </audio>
-              </li>))}
-          </div>
-        </div>
+                  {`${arrayNomesArtista[0]}`}
+                </p>
+                <p
+                  data-testid="album-name"
+                >
+                  { `${arrayNomeAlbum[0]}`}
+                </p>
+              </div>
+              <div className="lista-musicas">
+                {listaMusicas.slice(1).map((item, index) => (
+                  <li
+                    className="itens"
+                    key={ index }
+                  >
+                    <input
+                      onChange={ this.addFavorite }
+                      type="checkbox"
+                      checked={ marcado }
+                      data-testid={ `checkbox-music-${item.trackId}` }
+                    />
+                    {`${item.trackName}
+                      `}
+                    <audio
+                      data-testid="audio-component"
+                      src={ `${item.previewUrl}` }
+                      controls
+                    >
+                      <track kind="captions" />
+                    </audio>
+                  </li>))}
+              </div>
+            </div>)}
       </>
     );
   }
