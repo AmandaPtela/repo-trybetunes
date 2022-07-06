@@ -2,22 +2,21 @@ import { PropTypes } from 'prop-types';
 import React from 'react';
 import '../MusicCard.css';
 import getMusics from '../services/musicsAPI';
-import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong } from '../services/favoriteSongsAPI';
 import Header from './Header';
 import Loading from './Loading';
 
 class MusicCard extends React.Component {
   state = {
     listaMusicas: [],
-    favoritasSalvas: [],
+    // favoritasSalvas: [],
     loading: false,
     favoritas: [],
-    curtidas: [],
+    // curtidas: [],
   }
 
   async componentDidMount() {
-    const { ident, favorites } = this.props;
-    this.setState({ curtidas: favorites})
+    const { ident } = this.props;
     const lista = await getMusics(ident);
     this.setState({ listaMusicas: lista });
   }
@@ -26,11 +25,11 @@ class MusicCard extends React.Component {
     const { favoritas } = this.state;
     this.setState({ loading: true }, async () => {
       const musica = event.target.value;
+      await addSong(musica);
       this.setState({ loading: false,
         favoritas: [...favoritas, musica],
-        favoritasSalvas: await addSong(musica),
       });
-    })
+    });
   }
 
   render() {

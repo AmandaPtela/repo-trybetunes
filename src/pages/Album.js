@@ -7,15 +7,17 @@ class Album extends React.Component {
   state = {
     favoritas: [],
   }
-  async componentDidMount(){
-  this.setState({favoritas: await getFavoriteSongs()})
+
+  async componentDidMount() {
+    this.setState({ favoritas: await getFavoriteSongs() });
   }
+
   render() {
     const { location } = this.props;
     const { favoritas } = this.state;
     const Id = location.pathname.split('/');
     return (
-      <MusicCard favorites={favoritas} ident={ Id[2] } />
+      <MusicCard favorites={ favoritas } ident={ Id[2] } />
     );
   }
 }
