@@ -30,14 +30,16 @@ header {
   height: 65px;
   justify-items: baseline;
 }
- p {
+
+p {
   text-align: start;
   width: 600px;
- }
+}
 
- .input-fav {
+.input-fav {
   width: 30px;
- }
+}
+
 audio {
   align-self: baseline;
   height: 20px;

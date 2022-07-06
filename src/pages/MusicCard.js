@@ -2,20 +2,22 @@ import { PropTypes } from 'prop-types';
 import React from 'react';
 import '../MusicCard.css';
 import getMusics from '../services/musicsAPI';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Header from './Header';
 import Loading from './Loading';
 
 class MusicCard extends React.Component {
   state = {
     listaMusicas: [],
+    favoritasSalvas: [],
     loading: false,
     favoritas: [],
+    curtidas: [],
   }
 
   async componentDidMount() {
-    // const { id } = this.state;
-    const { ident } = this.props;
+    const { ident, favorites } = this.props;
+    this.setState({ curtidas: favorites})
     const lista = await getMusics(ident);
     this.setState({ listaMusicas: lista });
   }
@@ -24,13 +26,16 @@ class MusicCard extends React.Component {
     const { favoritas } = this.state;
     this.setState({ loading: true }, async () => {
       const musica = event.target.value;
-      await addSong(musica);
-      this.setState({ loading: false, favoritas: [...favoritas, musica] });
-    });
+      this.setState({ loading: false,
+        favoritas: [...favoritas, musica],
+        favoritasSalvas: await addSong(musica),
+      });
+    })
   }
 
   render() {
     const { listaMusicas, loading, favoritas } = this.state;
+    /* const { favorites } = this.props; */
     const arrayNomeAlbum = listaMusicas.map((musicas) => musicas.collectionName);
     const arrayNomesArtista = listaMusicas.map((item) => item.artistName);
     // const musicas = listaMusicas.slice(1).map((item) => item.trackName);
